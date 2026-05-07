@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MNP上級者向け Q&Aベスト50</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      #f4f6fb;
+    --card:    #ffffff;
+    --border:  #e2e8f4;
+    --blue:    #0066cc;
+    --text:    #1a1a2e;
+    --muted:   #5a6480;
+    --yellow:  #f59e0b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); line-height: 1.75; }
+
+  /* ── HERO（グリーン） ── */
+  .hero {
+    background: linear-gradient(135deg, #006633 0%, #00aa55 50%, #00dd88 100%);
+    padding: 56px 20px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 5px;
+    background: repeating-linear-gradient(90deg,#fff 0,#fff 24px,transparent 24px,transparent 48px);
+    opacity: .3;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,.25);
+    border: 1px solid rgba(255,255,255,.5);
+    color: #fff;
+    font-size: 11px; font-weight: 700;
+    padding: 4px 16px; border-radius: 20px;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+    backdrop-filter: blur(4px);
+  }
+  .hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(30px, 6vw, 54px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 12px;
+    letter-spacing: -1px;
+    text-shadow: 0 2px 12px rgba(0,0,0,.15);
+  }
+  .hero h1 span { color: #ccffaa; }
+  .hero p { font-size: 14px; color: rgba(255,255,255,.88); max-width: 480px; margin: 0 auto 28px; }
+  .hero-stats { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .hero-stat {
+    background: rgba(255,255,255,.2);
+    border: 1px solid rgba(255,255,255,.4);
+    border-radius: 12px;
+    padding: 10px 22px;
+    font-size: 12px; color: rgba(255,255,255,.9); font-weight: 700;
+    backdrop-filter: blur(4px);
+  }
+  .hero-stat strong { color: #ccffaa; font-size: 20px; display: block; font-family: 'Barlow Condensed', sans-serif; }
+
+  .wrapper { max-width: 860px; margin: 0 auto; padding: 40px 20px 80px; }
+
+  /* ── TOC ── */
+  .toc {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 18px;
+    padding: 24px 28px;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 16px rgba(0,0,0,.05);
+  }
+  .toc h2 { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 2px; margin-bottom: 16px; }
+  .toc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px; }
+  .toc-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 12px; border-radius: 8px;
+    text-decoration: none; color: var(--text); font-size: 13px;
+    transition: background .15s; border: 1px solid transparent;
+  }
+  .toc-item:hover { background: var(--bg); border-color: var(--border); }
+  .toc-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 44px; }
+  .section-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 16px; padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px; font-weight: 900;
+    width: 42px; height: 42px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; color: #fff;
+    box-shadow: 0 3px 10px rgba(0,0,0,.12);
+  }
+  .section-title { font-size: 16px; font-weight: 700; color: var(--text); flex: 1; }
+  .section-count {
+    font-size: 11px; color: var(--muted);
+    background: var(--bg); padding: 3px 10px; border-radius: 20px;
+    border: 1px solid var(--border); font-weight: 700;
+  }
+
+  /* ── Q&A ── */
+  .qa-list { display: flex; flex-direction: column; gap: 8px; }
+  .qa-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; overflow: hidden;
+    transition: box-shadow .2s, border-color .2s;
+    box-shadow: 0 1px 6px rgba(0,0,0,.04);
+  }
+  .qa-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.08); }
+  .qa-card.open { border-color: #00aa55; box-shadow: 0 4px 20px rgba(0,170,85,.12); }
+  .qa-q {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 15px 18px; cursor: pointer; user-select: none;
+  }
+  .qa-num { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 900; color: var(--muted); min-width: 28px; padding-top: 2px; letter-spacing: .5px; }
+  .qa-q-label { font-size: 14px; font-weight: 700; color: var(--text); flex: 1; line-height: 1.55; }
+  .qa-toggle {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--bg); border: 1.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 10px; color: var(--muted);
+    transition: transform .2s, background .2s, color .2s; margin-top: 2px;
+  }
+  .qa-card.open .qa-toggle { transform: rotate(180deg); background: #00aa55; color: #fff; border-color: #00aa55; }
+  .qa-a { display: none; }
+  .qa-card.open .qa-a { display: block; }
+  .qa-a-inner {
+    font-size: 13.5px; color: var(--muted); line-height: 1.9;
+    border-top: 1.5px solid var(--border);
+    padding: 14px 18px 16px 58px;
+  }
+  .qa-a-inner strong { color: var(--text); font-weight: 700; }
+  .qa-a-inner ul { list-style: none; margin: 8px 0; }
+  .qa-a-inner ul li { padding: 3px 0; display: flex; align-items: flex-start; gap: 8px; }
+  .qa-a-inner ul li::before { content: '›'; color: #00aa55; font-weight: 900; font-size: 16px; flex-shrink: 0; line-height: 1.4; }
+
+  .notice {
+    background: #fff8e6; border: 1.5px solid #f5d060;
+    border-left: 5px solid var(--yellow); border-radius: 12px;
+    padding: 16px 20px; font-size: 13px; color: #6b5000;
+    margin-top: 40px; line-height: 1.85;
+  }
+  .notice strong { color: #8a6000; }
+  .back-top { display: block; text-align: center; margin-top: 36px; color: var(--muted); font-size: 13px; text-decoration: none; transition: color .2s; }
+  .back-top:hover { color: #00aa55; }
+
+  @media (max-width: 600px) {
+    .hero { padding: 40px 20px 36px; }
+    .toc-grid { grid-template-columns: 1fr; }
+    .qa-a-inner { padding-left: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero" id="top">
+  <div class="hero-badge">🔥 MNP ADVANCED KNOWLEDGE</div>
+  <h1>上級者向け<br><span>マニアックQ&A ベスト50</span></h1>
+  <p>MNPを深く極める人が知っておくべき踏み込んだ質問と回答集</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><strong>50</strong>Q&A収録</div>
+    <div class="hero-stat"><strong>9</strong>カテゴリ</div>
+    <div class="hero-stat"><strong>厳選</strong>上級情報</div>
+  </div>
+  <div style="margin-top:22px;font-size:13px;font-weight:700;color:rgba(255,255,255,.9);letter-spacing:.5px;">
+    🏎️ やっぴ〜＠MNP×クレカ錬金術師
+  </div>
+</div>
+
+<div class="wrapper">
+
+  <div class="toc">
+    <h2>CONTENTS — カテゴリ一覧</h2>
+    <div class="toc-grid">
+      <a href="#secA" class="toc-item"><span class="toc-dot" style="background:#006633"></span>A. UQ・povo 深掘り運用</a>
+      <a href="#secB" class="toc-item"><span class="toc-dot" style="background:#0066cc"></span>B. 弾・eSIM 高度な使い方</a>
+      <a href="#secC" class="toc-item"><span class="toc-dot" style="background:#e8002d"></span>C. ブラック・総合判断の詳細</a>
+      <a href="#secD" class="toc-item"><span class="toc-dot" style="background:#ff6b00"></span>D. 回線数・利用者の上限攻略</a>
+      <a href="#secE" class="toc-item"><span class="toc-dot" style="background:#7c3aed"></span>E. ドコモ・SB・YM 細かいルール</a>
+      <a href="#secF" class="toc-item"><span class="toc-dot" style="background:#db2777"></span>F. 端末・買取・換金の詳細</a>
+      <a href="#secG" class="toc-item"><span class="toc-dot" style="background:#0891b2"></span>G. 光回線・電気の高度な活用</a>
+      <a href="#secH" class="toc-item"><span class="toc-dot" style="background:#f59e0b"></span>H. 審査・委任状・代理契約</a>
+      <a href="#secI" class="toc-item"><span class="toc-dot" style="background:#00a550"></span>I. トラブル対処・実践ノウハウ</a>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION A ═══ -->
+  <div class="section" id="secA">
+    <div class="section-header">
+      <div class="section-badge" style="background:linear-gradient(135deg,#006633,#00aa55)">A</div>
+      <div class="section-title">UQ・povo 深掘り運用</div>
+      <div class="section-count">Q1〜8</div>
+    </div>
+    <div class="qa-list">
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q1</div>
+          <div class="qa-q-label">UQ→povoは契約当月に即日できますか？91日待つ必要はありますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>契約当月に即povo移行で問題ありません。</strong>91日ルールはUQへの再契約に適用されるものであり、UQ→povoへの移行自体に日数制限はありません。povo移行後はUQの枠がリセットされ、すぐに新たなUQ契約が可能になります。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q2</div>
+          <div class="qa-q-label">povoへ移行した回線を弾として即日使っても問題ありませんか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>使うこと自体は可能ですが、povo側が総合をくらうリスクがあります。</strong>アテナ講師の推奨は「povoにした回線は弾として使わず、半年（180日）そのまま維持する」こと。povo自体が0円で維持できるため、放置が最も安全です。手配師案件でない自己案件であれば弾として使えるケースもありますが、慎重な判断が必要です。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q3</div>
+          <div class="qa-q-label">UQ→povo→UQのループを何回転まで安全にできますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>2〜3回転で総合（ブラック）になるケース</strong>が確認されています。ループ回数よりもpovo維持期間の長さが重要です。povo180日保持を守ることでリスクが大幅に下がります。同じ電話番号で同系列を繰り返すため、過去の乗り換え履歴が蓄積されていくことを意識してください。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q4</div>
+          <div class="qa-q-label">povo移行後、UQの91日ルールはどのようにリセットされますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          povo移行した瞬間にUQの回線枠がリセットされます。例えばUQ3回線をpovoに逃した場合、その3枠分がすぐに空きます。<strong>91日ルールは「その名義でUQに何回線あるか」の上限（5回線）に対して適用されるルール</strong>であり、povo移行でカウントがリセットされるため早期に再契約が可能になります。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q5</div>
+          <div class="qa-q-label">UQからpovoへ一部回線だけ移行した場合、残りの回線の91日カウントはどうなりますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          povo移行した回線分のみカウントがリセットされ、<strong>残った回線は元の91日カウントがそのまま継続</strong>します。例えばUQ3回線のうち2回線をpovoに移行すると、2回線分の枠が空き新規2回線の契約が可能になりますが、残り1回線は91日経過後でないと4・5回線目の追加ができません。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q6</div>
+          <div class="qa-q-label">povoは何回線まで契約できますか？6回線目から費用は変わりますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          povoは<strong>5回線までは通常対応</strong>ですが、<strong>6回線目から事務手数料3,850円が発生</strong>します。UQを大量にpovoへ逃がす場合、6回線を超えるとコストが上乗せされるため、回線数管理が重要です。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q7</div>
+          <div class="qa-q-label">UQのCBが7ヶ月後払いの案件で、CB受け取り前にpovo移行したらCBはもらえますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>案件元の店舗次第</strong>となります。7ヶ月後CB前に解約・MNPアウトした場合、CB対象外になる可能性があります。必ず契約した店舗に「povo移行のタイミング」を事前確認してください。稼働確認は継続して行っておくことが重要です。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q8</div>
+          <div class="qa-q-label">喪明け直後にpovo移行を行うと再び総合になりやすいですか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>過去の店舗を変えてのトライはアリ</strong>とされています。ただし現状、喪明け直後に同じ動きをすると再び総合になるリスクは排除できません。最低でもpovo180日保持ルールを守り、慎重に動くことが推奨されます。
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ SECTION B ═══ -->
+  <div class="section" id="secB">
+    <div class="section-header">
+      <div class="section-badge" style="background:linear-gradient(135deg,#0066cc,#0099ff)">B</div>
+      <div class="section-title">弾・eSIM 高度な使い方</div>
+      <div class="section-count">Q9〜16</div>
+    </div>
+    <div class="qa-list">
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q9</div>
+          <div class="qa-q-label">楽天モバイルで複数回線の予約番号を発行する際、SMS認証を1回で使い回す方法は？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>短時間で連続して予約番号を発行する場合、最初のSMS認証番号を使い回せる可能性が高い</strong>です。一度認証した番号を2回線目以降にそのまま入力することで通信なしで予約番号を取得できるケースが報告されています。ただし確実ではなく、楽天側のシステム変更で使えなくなる可能性があるため注意が必要です。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q10</div>
+          <div class="qa-q-label">日本通信のeSIMは通信・開通なしで予約番号を発行できますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>はい、可能です。</strong>マイページからeSIMをダウンロードせずに予約番号の発行依頼ができます。審査にはマイナンバーカードとNFC対応スマホがあれば翌日には予約番号が届きます。日本通信の専用アプリを使うと操作がスムーズです。最大5回線まで対応しています。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q11</div>
+          <div class="qa-q-label">ポケシムの有効期限は何日で、発行タイミングをずらすことはできますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          ポケシムの有効期限は発行から<strong>約2週間</strong>です。使用予定日に合わせて発行タイミングを調整することが可能で、アテナ側に「〇日に使用予定」と伝えると使用日の2日前を目安に納品してもらえます。早すぎる発行は有効期限切れになるため注意が必要です。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q12</div>
+          <div class="qa-q-label">弾作成直後（翌日）にMNPすると総合リスクがありますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>弾作成直後という理由だけで総合になることは基本的にありません。</strong>リンクスメイト等で弾作成後すぐに大量MNPして問題なかった実績が複数報告されています。ただし他の要因（同住所大量契約・乗り換え回数の蓄積など）が重なると審査に響く可能性があります。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q13</div>
+          <div class="qa-q-label">楽天モバイルを弾として使う場合、楽天ブラックにならない代替手段は？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          楽天ブラックが心配な場合の代替弾は以下が推奨です：<ul>
+            <li>日本通信（最大5回線、最速・最安定）</li>
+            <li>ポケシム（何回転してもブラックにならない）</li>
+            <li>リンクスメイト（d回線、3〜5回線）</li>
+            <li>IIJmio（au回線、5回線）</li>
+            <li>NUROモバイル（SB回線、日数がかかる）</li>
+          </ul>
+          15回線以上必要な場合は複数を組み合わせます。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q14</div>
+          <div class="qa-q-label">日本通信のeSIM「構成プロファイル」は他のeSIM（楽天等）に流用できますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>基本的に流用はできません。</strong>各キャリアの構成プロファイルはそのキャリア専用のものです。日本通信用のプロファイルを楽天のeSIM設定に使うことはできないと考えておいてください。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q15</div>
+          <div class="qa-q-label">エディオンでポケシムを弾として使ったらNGになった理由は？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          エディオンは<strong>稼働履歴（通信実績）を確認するチェックが他の量販店より厳しい</strong>傾向があります。ポケシムは稼働実績が少ないためNGになるケースがあります。エディオンで契約する際は、事前にある程度稼働させた弾を使うか、別の量販店での案件を選ぶことが推奨されます。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q16</div>
+          <div class="qa-q-label">子供（0歳・2歳）名義でも弾を作ることができますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>楽天モバイルは0歳名義でも10回線作れた実績があります。</strong>ポケシム・日本通信・mineoなどは<strong>12歳以上</strong>が条件となります。UQ・YM・SBのMNP案件も利用者として12歳以上であればOKです。キャリアや代理店によって条件が異なるため、事前確認が必須です。
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ SECTION C ═══ -->
+  <div class="section" id="secC">
+    <div class="section-header">
+      <div class="section-badge" style="background:linear-gradient(135deg,#e8002d,#ff4d6a)">C</div>
+      <div class="section-title">ブラック・総合判断の詳細</div>
+      <div class="section-count">Q17〜22</div>
+    </div>
+    <div class="qa-list">
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q17</div>
+          <div class="qa-q-label">総合判断（ブラック）になった場合、他の量販店に行けば契約できますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>いいえ。総合判断はキャリアのシステムレベルで登録されるため、どの店舗に行っても同じ結果になります。</strong>「別の店舗なら通る」という判断は誤りで、毎月占いサービスで判定を確認しながら喪明けを待つしかありません。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q18</div>
+          <div class="qa-q-label">総合判断になったかどうかを確認する方法はありますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          「<strong>占い</strong>」と呼ばれる審査確認サービスを利用します。毎月1回程度確認を行い、審査が通る状態かどうかをチェックします。直接キャリアショップで申し込みを試みる方法もありますが、審査落ちの記録が残るリスクがあるため占いでの事前確認が推奨されます。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q19</div>
+          <div class="qa-q-label">3ヶ月非稼働のまま解約すると審査にどう影響しますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>3ヶ月非稼働→解約→新規</strong>のフローは審査に響く可能性があります。低稼働リスクとしてキャリアのシステムに記録されるためです。稼働確認を行ってから解約することが推奨されます。また解約後は新規より<strong>MNPの方がCBが多い</strong>ため、他社弾を経由してMNPするフローが有利です。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q20</div>
+          <div class="qa-q-label">過去に携帯料金を滞納した人でも審査は通りますか？</div>
+          <div class="qa-550">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          審査に影響する可能性があります。<strong>完済済みであっても記録が残っているケースがあります。</strong>まずキャリアのコールセンターや店頭で残債の有無を確認し、残債があれば完済することが先決です。完済後は比較的早期に案件参加が可能なケースが多いです。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q21</div>
+          <div class="qa-q-label">iijmioを短期解約するとどんなリスクがありますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          iijmioは短期解約すると<strong>総合（ブラック）になりやすく、喪明けに1年以上かかる</strong>ケースが報告されています。端末割引は1名義・12ヶ月に1回の制限があるため、短期でお得を取ろうとするのは非常にリスクが高いです。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q22</div>
+          <div class="qa-q-label">同一住所・同月に5回線以上のMNPをすると何が起きますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          SB・YMの場合、<strong>同一住所・同月5回線以上になるとキャリア本社から代理店にヒアリングが入ります。</strong>代理店にペナルティが発生するリスクがあるため、安全運転として月4回線以内に抑え、翌月に残りを埋める方法が推奨されます。
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ SECTION D ═══ -->
+  <div class="section" id="secD">
+    <div class="section-header">
+      <div class="section-badge" style="background:linear-gradient(135deg,#ff6b00,#ff9500)">D</div>
+      <div class="section-title">回線数・利用者の上限攻略</div>
+      <div class="section-count">Q23〜28</div>
+    </div>
+    <div class="qa-list">
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q23</div>
+          <div class="qa-q-label">YM既存5回線ある状態で当日解約→翌日新規申込は可能ですか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>問題なく申し込み可能です。</strong>解約した当月でも翌日からすぐに新規申込ができます。5回線の上限は「現在保有している回線数」でカウントされるため、解約した分の枠はすぐに空きます。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q24</div>
+          <div class="qa-q-label">SBのMNPでタブレット（データ回線）の利用者はスマホ回線と同じようにカウントされますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>はい。SBのMNPにおいてはタブレットのデータ回線も利用者1回線としてカウントされます</strong>（SB本社確認済み）。すでにタブレット回線の利用者として登録されている場合、その人の2回線目の追加が通らないケースがあります。この場合はデータ回線の使用者変更か解約が必要です。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q25</div>
+          <div class="qa-q-label">苗字・住所が異なる家族でも家族割を組んでおうち割を全回線に適用できますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>はい。登記謄本があれば苗字・住所が異なる家族でも家族割を組むことができます。</strong>家族割を組んだ上で1人でもSB光・でんきを契約していれば、おうち割が全回線（最大10回線）に適用されます。さらにPayPayキャンペーンも利用者ごとに受け取ることができます。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q26</div>
+          <div class="qa-q-label">YMを利用者として使用中の人が新たに契約者として回線を作る場合、何回線まで可能ですか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          利用者として登録されている回線もカウントに含まれます。YM・SBは利用者1人につき2回線まで。すでに利用者として1回線使用中なら、その人の名義で新たに作れるのは<strong>残り1回線</strong>となります。代表者として5回線持つことも可能ですが、利用者の用意が必要です（2回線につき1名）。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q27</div>
+          <div class="qa-q-label">ドコモは利用者を口頭で登録できる店舗がありますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>はい。ドコモは口頭で利用者を登録できる店舗が多くあります。</strong>自名義のみでも審査は通せますが、利用者を入れた方が審査通過率が上がります。量販店を中心に口頭対応可能な店舗を探すのが効率的です。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q28</div>
+          <div class="qa-q-label">UQを3回線→povo2回線移行した場合、次にUQへ追加できる回線数と条件は？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          povo移行した2回線分の枠が空くため、<strong>すぐに2回線まで追加契約が可能です。</strong>ただし3回線目（合計3回線保有）以上を追加したい場合は、最初の契約から91日経過が必要です。さらにpovoへ逃がすことで枠を空け続けるループが可能ですが、総合リスクに注意が必要です。
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ SECTION E ═══ -->
+  <div class="section" id="secE">
+    <div class="section-header">
+      <div class="section-badge" style="background:linear-gradient(135deg,#7c3aed,#a855f7)">E</div>
+      <div class="section-title">ドコモ・SB・YM 細かいルール</div>
+      <div class="section-count">Q29〜35</div>
+    </div>
+    <div class="qa-list">
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q29</div>
+          <div class="qa-q-label">ドコモは181日以内に2回線超のMNPが通らない理由と回避策は？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          ドコモは<strong>前回契約日から181日（約6ヶ月）以内に同一名義で2回線を超えるMNPができない</strong>制限があります。量販店での基本は2回線まで。回避策は181日待つか、別の家族名義を活用することです。また免許証での審査の方がマイナンバーより通りやすいとされています。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q30</div>
+          <div class="qa-q-label">ドコモ光で年間10回線以上の事業者変更をすると何が起きますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>2025年11月以降、年間10回線以上の乗り換え実績がある人はドコモ光の事業者変更申込時に自動でNGになる</strong>システムが導入されました。店舗のタブレットから新規申込なら通るケースもありますが、NTT側で工事を拒否・先延ばしされるリスクもあります。ドコモ光を軸にした運用は終わりに近い状況です。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q31</div>
+          <div class="qa-q-label">ドコモのMAX・miniプランをデータプラスに変更する際の費用はいくらですか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          プラン変更パターンによって異なります：<ul>
+            <li>MAX→mini または mini→MAX：<strong>変更月31日分の料金全額</strong>が請求される</li>
+            <li>max/mini→データプラス5G：<strong>データプラス料金1,100円のみ</strong>でOK</li>
+          </ul>
+          コストを抑えたい場合はデータプラス5Gへの変更が有利です。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q32</div>
+          <div class="qa-q-label">ワイモバイルのプラン変更のタイミングを店舗が指定する理由は何ですか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          代理店（店舗）がキャリアからインセンティブを受け取る条件として、<strong>契約者が一定期間維持することが必要</strong>だからです。早期にプラン変更されると代理店へのインセンティブが減額またはゼロになるペナルティが発生します。そのため店舗によって「翌日OK」「2ヶ月維持を」と指示が異なります。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q33</div>
+          <div class="qa-q-label">SBひかりブラックとは何で、どうなったら適用されますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>SBひかりブラック</strong>とはソフトバンク光で短期解約を繰り返した場合に適用される制限です。適用されると特典・割引が受けられなくなり、以後のSB光契約でのCB取得が困難になります。3ヶ月以内の解約はリスクが高く、<strong>最低6ヶ月維持が安全</strong>とされています。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q34</div>
+          <div class="qa-q-label">SB光の安心乗り換えパックは何回でも利用できますか？条件は？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>1利用者に1回</strong>の制限があり、過去半年以内にその利用者名義で解約歴があると適用外になります。同一利用者での繰り返し利用は微妙なラインとされており、1G・10GプランはどちらもOKですが同一住所への2回線目（同じプラン）は対応不可の可能性があります。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q35</div>
+          <div class="qa-q-label">おうち割・でんきセットのPayPayは利用者ごとにもらえますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>はい、対象は1利用者ごと</strong>です。家族割を組んでいれば、でんきとひかりを1人が契約しているだけで全員の回線におうち割が適用され、各利用者がPayPayキャンペーンの対象となります。申告（セット割の組み込み）を忘れずに行うことが重要です。
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ SECTION F ═══ -->
+  <div class="section" id="secF">
+    <div class="section-header">
+      <div class="section-badge" style="background:linear-gradient(135deg,#db2777,#ec4899)">F</div>
+      <div class="section-title">端末・買取・換金の詳細</div>
+      <div class="section-count">Q36〜40</div>
+    </div>
+    <div class="qa-list">
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q36</div>
+          <div class="qa-q-label">ヤマダポイントCBの場合に「家電値引き」は何が買えて、何が買えませんか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          家電値引きの場合、<strong>ゲーム機（Switch・PS5）は購入できないケースがある</strong>と報告されています。換金目的で使いやすい商材としては、<strong>iPad・AirPods Pro・Meta Quest・SONY高級ヘッドフォン</strong>などが無難です。換金率はiPad A16で約89%、AirPods Pro3で約90〜95%とされています。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q37</div>
+          <div class="qa-q-label">端末を開封してしまうと買取価格はどれほど下がりますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          開封済みは<strong>中古扱い</strong>となり、未開封と比べて買取価格が下がります。下落幅は業者・機種によりますが数千円〜1万円程度の差が出ることもあります。店舗によっては開封を断れない場合もあるため、その際は購入前に買取業者への確認を推奨します。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q38</div>
+          <div class="qa-q-label">ドコモ一括購入端末のネットワーク利用制限が△から〇になる条件は？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>契約翌日に〇になります。</strong>ただし「smartあんしんパック」が紐づいている場合は未確認ですが〇になると思われます（前身の「あんしんパック」では紐づいていても〇になっていた実績あり）。また「安心保証パックプラスB」は外さないと〇にならないとの報告があります。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q39</div>
+          <div class="qa-q-label">海峡通信のカートに商品を入れられない場合はどうすればいいですか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>海峡通信は営業時間外はカートへの追加が制限されています。</strong>通常の営業時間内に再度アクセスしてください。混雑時は在庫切れになることもあるため、早めの時間帯に試みることを推奨します。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q40</div>
+          <div class="qa-q-label">買取業者の換金率が流動的な場合、どうやって最新情報を調べますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          AIで最新の買取相場を検索するのが最も手軽です。年末・年始などの時期によって変動が大きいため、<strong>換金直前に複数の買取業者を比較</strong>することが推奨されます。買取一丁目・海峡通信等の比較が一般的です。換金率を求めすぎて決められなくなるより、相場内で素早く動くことが重要です。
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ SECTION G ═══ -->
+  <div class="section" id="secG">
+    <div class="section-header">
+      <div class="section-badge" style="background:linear-gradient(135deg,#0891b2,#06b6d4)">G</div>
+      <div class="section-title">光回線・電気の高度な活用</div>
+      <div class="section-count">Q41〜44</div>
+    </div>
+    <div class="qa-list">
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q41</div>
+          <div class="qa-q-label">すでにSB光がある状態で新たにSB光のCBを得るにはどうすればいいですか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          同住所への2回線目はシステム上は申込できますが、スタッフにストップされる可能性があります。別住所なら可能性があります。既存のSB光がある場合は<strong>他社光への乗り換え（モッピー等ポイントサイト経由）</strong>の方がお得なケースが多いとされています。SB Airは光回線がある状態では勿体ないです。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q42</div>
+          <div class="qa-q-label">電気契約が「調査連絡書」が来た状態でも電気CBはもらえますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>キャンセルされていなければCBはもらえます。</strong>電気の開通手続きが未完了の状態でも、キャンセルさえしていなければ電気CBの対象となります。新規案件で改めて申し込む場合も、可能なら店舗を変えた方が無難とされています。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q43</div>
+          <div class="qa-q-label">SB光の3ヶ月通信費無料中に解約すると、無料分が後から請求されますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>3ヶ月目を過ぎていれば請求はありません。</strong>ただしモバイルは解約月まで割引適用されますが、固定（光）は対象外になるケースがあります。SBひかりブラックのリスクを考えると<strong>最低6ヶ月維持が推奨</strong>です。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q44</div>
+          <div class="qa-q-label">おうち割・でんきセットを組んでいるSB・YMの回線はどこで解約できますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          電気割・ネット割を組んでいる場合、<strong>店頭（ソフトバンクショップ）でしか解約できません。</strong>Webや電話での解約は不可となります。解約時はおうち割の組み替えが必要になるため、事前に確認しておきましょう。
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ SECTION H ═══ -->
+  <div class="section" id="secH">
+    <div class="section-header">
+      <div class="section-badge" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)">H</div>
+      <div class="section-title">審査・委任状・代理契約</div>
+      <div class="section-count">Q45〜48</div>
+    </div>
+    <div class="qa-list">
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q45</div>
+          <div class="qa-q-label">ドコモの審査でマイナンバーより免許証の方が通りやすい理由は？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          実務上の経験則として<strong>マイナンバーで審査すると落ちる可能性がある</strong>ことが複数確認されています。理由は明確には公開されていませんが、運転免許証での審査の方が通過率が高いとされています。ドコモの追加回線（3回線目）を入れる際は免許証での申込が推奨されています。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q46</div>
+          <div class="qa-q-label">代理でMNP手続きをする際に必要な委任状はどこでダウンロードできますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          ドコモの委任状は公式サイトからダウンロードできます：<ul>
+            <li>委任状一覧：https://www.docomo.ne.jp/support/consent_form/</li>
+            <li>委任状PDF：https://www.docomo.ne.jp/binary/pdf/support/consent_form/ininjo.pdf</li>
+          </ul>
+          書き方の見本も掲載されています。MNP手続き代理の場合は該当の委任状を使用してください。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q47</div>
+          <div class="qa-q-label">夫婦でペアで案件に参加する場合、公式LINEの登録や宿泊費の扱いはどうなりますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <ul>
+            <li>公式LINEは<strong>どちらか1人で対応可</strong>（ただし2人とも追加してプライバシーポリシーへの同意が必要）</li>
+            <li>宿泊費は<strong>各人5,000円ずつ</strong>支給</li>
+            <li>顧客管理シートは<strong>1人ずつ個別に記載</strong></li>
+          </ul>
+          トラブル時に両者が同意していることを証明するため、2人とも公式LINEに登録することが必須です。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q48</div>
+          <div class="qa-q-label">日本通信の初期手数料3,300円を節約する方法はありますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>Amazonでスターターパックを購入する</strong>ことで3,300円より安く済む場合があります。ただし急ぎで弾が必要な場合は時間がかかるためAmazonは不向きです。コストを抑えたい場合は事前に購入しておき、複数回線分をまとめて準備しておくことが効率的です。
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ SECTION I ═══ -->
+  <div class="section" id="secI">
+    <div class="section-header">
+      <div class="section-badge" style="background:linear-gradient(135deg,#00a550,#00cc66)">I</div>
+      <div class="section-title">トラブル対処・実践ノウハウ</div>
+      <div class="section-count">Q49〜50</div>
+    </div>
+    <div class="qa-list">
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q49</div>
+          <div class="qa-q-label">審査落ちになった弾（残ってしまったeSIM）はどう活用できますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          審査が通らず余った弾は以下のように活用できます：<ul>
+            <li>別のキャリア案件で弾として使う（回線自体は生きている）</li>
+            <li>エディオンSIM（BIGLOBEモバイル）への乗り換えに使う</li>
+            <li>稼働確認用回線として維持しておく</li>
+          </ul>
+          無駄にせず、次の案件の弾や稼働確認に充てることが基本です。
+        </div></div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q" onclick="toggle(this)">
+          <div class="qa-num">Q50</div>
+          <div class="qa-q-label">無限ワイモバイル（イブサン＝ローラン法）は現在も使えますか？</div>
+          <div class="qa-toggle">▼</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner">
+          <strong>現在も利用は可能ですが、当時より審査が厳しくなっています。</strong>繰り返しの回転は難しくなっており、何回転もすることは困難とされています。無限UQと同様に、同系列の繰り返しは総合リスクが高まるため、慎重な運用が必要です。最新の状況は案件LINEや手配師に都度確認することを推奨します。
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="notice">
+    <strong>⚠️ 注意事項</strong><br>
+    案件の内容・CB額・ルールは頻繁に変わります。必ず最新情報を確認してから動いてください。架空申込（空申込）は厳密には規約違反のリスクがあります。店舗・手配師の指示には必ず従いましょう。上級者向け情報であっても、状況や時期によって内容が変わる場合があります。
+  </div>
+
+  <a href="#top" class="back-top">↑ トップに戻る</a>
+
+  <div style="text-align:center;margin-top:32px;padding:24px;background:#fff;border-radius:16px;border:1.5px solid #e2e8f4;box-shadow:0 2px 12px rgba(0,0,0,.04);">
+    <div style="font-size:18px;font-weight:900;color:#1a1a2e;font-family:'Noto Sans JP',sans-serif;">🏎️ やっぴ〜＠MNP×クレカ錬金術師</div>
+  </div>
+
+</div>
+
+<script>
+function toggle(qEl) {
+  const card = qEl.closest('.qa-card');
+  card.classList.toggle('open');
+}
+document.querySelector('.qa-card').classList.add('open');
+</script>
+</body>
+</html>
